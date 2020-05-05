@@ -1,23 +1,94 @@
-import React from 'react';
-import { View, Text, KeyboardAvoidingView, ImageBackground, Image, StyleSheet, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { 
+  View, 
+  Text,
+  Image, 
+  Animated,
+  keyboard,
+  TextInput,
+  StatusBar,
+  StyleSheet, 
+  ImageBackground, 
+  KeyboardAvoidingView, 
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-// import { Container } from './styles';
-
 export default function Login() {
+  const [translate] = useState(new Animated.ValueXY({ x: 0, y: 95 }));
+  const [opacity] = useState(new Animated.Value(0));
+  // const [logo] = useState(new Animated.ValueXY({ x: 150, y: 150 }));
+
+  useEffect(() => {
+
+    // keyboardDidShowListener = keyboard.addEventListener('KeyboardDidShow', keyboardDidShow);
+    // keyboardDidHideListener = keyboard.addEventListener('KeyboardDidHide', keyboardDidHide);
+
+    Animated.parallel([
+      Animated.spring(translate.y, {
+        toValue: -10,
+        speed: 2,
+        bounciness: 20,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 550,
+      })
+    ]).start();
+
+  }, []);
+
+  // function keyboardDidShow() {
+  //   Animated.parallel([
+  //     Animated.timing(logo.x, {
+  //       toValue: 70,
+  //       duration: 100,
+  //     }),
+  //     Animated.timing(logo.y, {
+  //       toValue: 70,
+  //       duration: 100,
+  //     })
+  //   ]).start();
+  // }
+
+  // function keyboardDidHide() {
+  //   Animated.parallel([
+  //     Animated.timing(logo.x, {
+  //       toValue: 150,
+  //       duration: 100,
+  //     }),
+  //     Animated.timing(logo.y, {
+  //       toValue: 150,
+  //       duration: 100,
+  //     })
+  //   ]).start();
+  // }
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ImageBackground
         source={require('../../assets/gradient-log.jpg')}
         style={{ width: '100%', height: '100%' }}
       >
+        <StatusBar backgroundColor="#5700D8" />
         <View style={styles.logo} >
-          <Image
+          <Animated.Image
+          // style={{
+          //   width: logo.x,
+          //   height: logo.y,
+          // }}
             source={require('../../assets/react-purple-1.png')}
           />
         </View>
 
-        <View style={styles.content} >
+        <Animated.View style={[
+          styles.content,
+          {
+            opacity: opacity,
+            transform: [
+              { translateY: translate.y }
+            ]
+          }
+          ]}>
           <TextInput
             style={styles.input}
             placeholder="Email"
@@ -33,10 +104,10 @@ export default function Login() {
           />
 
           <TouchableOpacity style={styles.button} >
-            <Text>Entrar</Text>
+            <Text style={styles.btnText} >Entrar</Text>
           </TouchableOpacity>
 
-        </View>
+        </Animated.View>
       </ImageBackground>
     </KeyboardAvoidingView>
   );
@@ -60,6 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
+    left: 20,
     padding: 10,
     width: '90%',
     fontSize: 16,
@@ -69,6 +141,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   button: {
-    
+    left: 20,
+    width: 330,
+    height: 45,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#7159c1',
+  },
+  btnText: {
+    fontSize: 16,
+    color: '#fff',
   },
 });

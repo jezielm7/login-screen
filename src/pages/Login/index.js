@@ -97,10 +97,11 @@ export default function Login({ navigation }) {
           />
 
           <TextInput
-            style={styles.input}
-            placeholder="Senha"
-            autoCapitalize="none"
+            secureTextEntry
             autoCorrect={false}
+            placeholder="Senha"
+            style={styles.input}
+            autoCapitalize="none"
           />
 
           <TouchableOpacity

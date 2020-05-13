@@ -3,4 +3,4 @@ A simple login screen with animations
 
 ## Screenshots
 
-![](src/images/login_screen.jpg=150x150)
+<img src="src/images/login_screen.jpg" alt="Login" width="250"/>

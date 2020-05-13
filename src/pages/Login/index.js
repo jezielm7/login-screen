@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  View, 
+import {
+  View,
   Text,
-  Image, 
+  Image,
   Animated,
   keyboard,
   TextInput,
   StatusBar,
-  StyleSheet, 
-  ImageBackground, 
-  KeyboardAvoidingView, 
+  StyleSheet,
+  ImageBackground,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [translate] = useState(new Animated.ValueXY({ x: 0, y: 95 }));
   const [opacity] = useState(new Animated.Value(0));
   // const [logo] = useState(new Animated.ValueXY({ x: 150, y: 150 }));
@@ -72,10 +72,10 @@ export default function Login() {
         <StatusBar backgroundColor="#5700D8" />
         <View style={styles.logo} >
           <Animated.Image
-          // style={{
-          //   width: logo.x,
-          //   height: logo.y,
-          // }}
+            // style={{
+            //   width: logo.x,
+            //   height: logo.y,
+            // }}
             source={require('../../assets/react-purple-1.png')}
           />
         </View>
@@ -88,7 +88,7 @@ export default function Login() {
               { translateY: translate.y }
             ]
           }
-          ]}>
+        ]}>
           <TextInput
             style={styles.input}
             placeholder="Email"
@@ -103,7 +103,10 @@ export default function Login() {
             autoCorrect={false}
           />
 
-          <TouchableOpacity style={styles.button} >
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Home')}
+          >
             <Text style={styles.btnText} >Entrar</Text>
           </TouchableOpacity>
 
@@ -127,6 +130,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     width: '90%',
+    alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
   },
   button: {
     left: 20,
-    width: 330,
+    width: 317,
     height: 45,
     borderRadius: 8,
     alignItems: 'center',
